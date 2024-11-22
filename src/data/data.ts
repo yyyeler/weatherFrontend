@@ -1,10 +1,22 @@
 export interface Response
 {
-  tempmax: string;
-  tempmin: string;
-  temp: string;
+  tempmax: number;
+  tempmin: number;
+  temp: number;
   icon: string; 
   conditions: string;
+}
+
+export class BaseData
+{
+  address: string = "";
+  latitude : number = 0;
+  longitude: number = 0;
+  queryCost: number = 0;
+  resolvedAddress: string  = "";
+  timezone: string  = "";
+  tzoffset: number = 0;
+  days : Response[] = [];
 }
 
 export interface Request
@@ -22,8 +34,8 @@ export interface Options {
 
 
 export const types :  Options[] = [
-    { value:"C", label:"Celsius" },
-    { value:"F", label:"Fahrenheit" }
+    { value:"Celsius", label:"Celsius" },
+    { value:"Fahrenheit", label:"Fahrenheit" }
 ];
 
 export const cities :  Options[] = [

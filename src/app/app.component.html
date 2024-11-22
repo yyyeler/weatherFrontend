@@ -2,7 +2,7 @@
   <div class="header text-center mb-5 mt-5">
     <h1>Weather</h1>
   </div>
-  <div class="row form-group">
+  <div class="row form-group filterDiv">
     <div class="col-md-2 text-end mt-1">
       <label for="Type">Type</label>
     </div>
@@ -26,14 +26,18 @@
       <button class="btn btn-primary" (click)="getWeather()">Get Weather</button>
     </div>
   </div>
-  <div *ngIf="result !== null" class="row mt-5">
-    <div class="col-md-5">
-    </div>
-    <div class="col-md-2 text-center todayBox">
-      <h3>Today</h3>
-
-    </div>
-    <div class="col-md-5">
-    </div>
+  <div *ngIf="result !== null"  class="row">
+    <ng-container *ngFor="let day of baseData.days; index as i">
+      <div class="col-md-2">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h4>{{(i==7?"Today":days[i])}}</h4>
+            <h2>{{day.temp+sign}} </h2>
+            <h5>{{day.tempmin+sign}}/{{day.tempmax+sign}}</h5>
+            <p>{{day.conditions}}</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>

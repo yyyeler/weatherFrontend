@@ -1,5 +1,14 @@
-.todayBox
+.card
 {
-    border-radius: 5px;
-    border: 1px solid darkgrey;
+    width: 8rem;
+    height: 13rem;
+    background-color: rgba(0, 0, 0, .03);
+}
+
+.filterDiv
+{
+    border: 1px solid #0000001a;
+    border-radius: 0.75rem;
+    padding: 2rem;    
+    background-color: rgba(0, 0, 0, .03);
 }

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Options, Request, cities, types } from '../data/data';
+import { Options, Request, cities, types, BaseData } from '../data/data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppService } from './service/app.service';
@@ -19,26 +19,46 @@ export class AppComponent {
   private api = inject(AppService);
   protected citiesOptions : Options[] = [];
   protected typeOptions : Options[] = [];
-  protected response : Response[] = [];
+  protected baseData : BaseData = new BaseData();;
   protected result = true;
-
+  protected sign : string = "";
+  protected days : string[] =[]
+ 
   ngOnInit() 
   {
     this.citiesOptions = cities;
     this.typeOptions = types;
     this.request.location ="Istanbul, Turkey";
-    this.request.type ="C";
-    this.request.date = new Date().toISOString().split('T')[0];
-
-    this.api.getData().subscribe((response) => {
-      this.response = response; 
-      console.log(this.response);
-    });
+    this.request.type ="Celsius";
+    this.days = this.createDateRange();
   }
 
   getWeather()
   {
-    console.log(this.request);
+    this.api.getData(this.request).subscribe((response) => {
+      this.baseData = response; 
+      console.log(response);
+      this.baseData.days.forEach(x =>{
+         x.temp     = Math.round(x.temp);
+         x.tempmin  = Math.round(x.tempmin);
+         x.tempmax  = Math.round(x.tempmax);
+      });
+      this.sign = (this.request.type === "Celcius"?"\u2109":"\u2103");
+    });
   }
 
+  createDateRange() {
+    const today = new Date();
+    const range = [];
+
+    for (let i = -7; i <= 7; i++) {
+        const date = new Date();
+        date.setDate(today.getDate() + i); 
+        const day = String(date.getDate()).padStart(2, '0'); 
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
+        range.push(`${day}/${month}`); 
+    }
+
+    return range;
+}
 }
