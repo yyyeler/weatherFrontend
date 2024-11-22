@@ -28,8 +28,8 @@
   </div>
   <div *ngIf="result !== null"  class="row">
     <ng-container *ngFor="let day of baseData.days; index as i">
-      <div class="col-md-2">
-        <div class="card mt-5">
+      <div class="col-md-2 col-sm-3 col-4">
+        <div [className]="(i==7)?'card mt-5 todayDiv':'card mt-5'">
           <div class="card-body">
             <h4>{{(i==7?"Today":days[i])}}</h4>
             <h2>{{day.temp+sign}} </h2>

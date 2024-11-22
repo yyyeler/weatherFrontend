@@ -12,3 +12,8 @@
     padding: 2rem;    
     background-color: rgba(0, 0, 0, .03);
 }
+
+.todayDiv
+{
+    background-color: #0d6efd8a;
+}
